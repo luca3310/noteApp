@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+  background: rgb(245, 248, 238);
+}
+
+nav {
+  background-color: #de5769;
+  display: flex;
+  justify-content: center;
+  height: 5rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  color: #f5f8ee;
+}
+
+main {
+  display: flex;
+
+  justify-content: space-between;
+  align-content: center;
+  padding-top: 3rem;
+}
+.inputNote {
+  width: 30rem;
+  background-color: #ffd096;
+  padding: 1.5rem;
+  color: black;
+  height: auto;
+}
+
+.inputNote:focus {
+  outline: none !important;
+  border: 1px solid #e99e18;
+  box-shadow: 0 0 10px #e99e18;
+}
+
+.noteContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-left: 25rem;
+}
+
+.completedNoteContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-right: 25rem;
+}
+
+.noteHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 2rem;
+  background-color: #e99e18;
+}
+svg:hover {
+  fill: #f5f8ee;
+}
+
+.submit {
+  border: none;
+  background-color: #e99e18;
+  margin-left: 1rem;
+}
+
+.bi-x {
+  margin-left: 1rem;
+}
+.bi-check {
+  margin-right: 1rem;
+}
+
+.note {
+  width: 30rem;
+  background-color: #ffd096;
+
+  color: black;
+}
+.noteText {
+  margin: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.completedNote {
+  width: 30rem;
+  background-color: #ffd096;
+
+  color: black;
+}
