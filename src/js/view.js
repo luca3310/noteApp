@@ -1,21 +1,61 @@
 class view {
-  notecontainer = document.querySelector(".noteContainer");
-  completedNoteContainer = document.querySelector(".completedNoteContainer");
-  form = document.querySelector(".form");
-  input = document.querySelector(".inputNote");
-  main = document.querySelector(".main");
+  parentEl = document.querySelector(".main");
 
-  addHandlerClose() {
-    this.main.addEventListener("click", function (e) {
-      const btn = e.target.closest(".bi-x");
-      if (!btn) return;
-      btn.closest(".note").remove();
+  renderNote(data) {
+    this.parentEl.querySelector(".noteContainer").innerHTML = "";
+    data.forEach((note) => {
+      const markup = this._generateNoteMarkup(note);
+      this.parentEl
+        .querySelector(".noteContainer")
+        .insertAdjacentHTML("afterbegin", markup);
     });
   }
 
-  _generateNoteMarkup() {
-    const markup = `
-      <div class="note">
+  renderCompleteNote(data) {
+    this.parentEl.querySelector(".completedNoteContainer").innerHTML = "";
+    data.forEach((note) => {
+      const markup = this._generateCompleteNoteMarkup(note);
+      this.parentEl
+        .querySelector(".completedNoteContainer")
+        .insertAdjacentHTML("afterbegin", markup);
+    });
+  }
+
+  getNote() {
+    const note = this.parentEl.querySelector(".inputNote").value;
+    this.parentEl.querySelector(".inputNote").value = "";
+    return note;
+  }
+
+  getCloseId(handler) {
+    this.parentEl.addEventListener("click", function (e) {
+      const btn = e.target.closest(".bi-x");
+      if (!btn) return;
+      handler(btn.closest(".note").id);
+    });
+  }
+
+  getCompletedNote(handler) {
+    this.parentEl.addEventListener("click", function (e) {
+      const btn = e.target.closest(".bi-check");
+      if (!btn) return;
+      handler(btn.closest(".note").id);
+    });
+  }
+
+  addHandlerSubmit(handler) {
+    this.parentEl
+      .querySelector(".form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        handler();
+      });
+  }
+
+  _generateNoteMarkup([data, id]) {
+    return `
+      <div id="${id}" class="note">
         <div class="noteHeader">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,15 +80,14 @@ class view {
         </div>
     
         <p class="noteText">
-          ${this.input.value}
+          ${data}
         </p>
       </div>`;
-
-    this.notecontainer.insertAdjacentHTML("beforeend", markup);
   }
-  _generateCompleteNoteMarkup(data) {
-    const markup = `
-      <div class="note">
+
+  _generateCompleteNoteMarkup([data, id]) {
+    return `
+      <div id="${id}" class="note">
         <div class="noteHeader">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,8 +106,6 @@ class view {
           ${data}
         </p>
       </div>`;
-
-    this.completedNoteContainer.insertAdjacentHTML("beforeend", markup);
   }
 }
 

@@ -1,20 +1,33 @@
 import view from "./view";
-const form = document.querySelector(".form");
-const noteContainer = document.querySelector(".noteContainer");
+import { loadNote, closeNote, getLocal, completedNote } from "./model";
+import { state } from "./model";
 
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  view._generateNoteMarkup();
-});
+const controlSubmit = function () {
+  loadNote(view.getNote());
 
-noteContainer.addEventListener("click", function (e) {
-  const btn = e.target.closest(".bi-check");
-  console.log(btn);
-  const data = btn.closest(".note").querySelector(".noteText").innerHTML;
+  view.renderNote(state.notes);
+};
 
-  if (!btn) return;
-  view._generateCompleteNoteMarkup(data);
-  btn.closest(".note").remove();
-});
+const controlClose = function (data) {
+  closeNote(data);
 
-view.addHandlerClose();
+  view.renderNote(state.notes);
+  view.renderCompleteNote(state.completedNotes);
+};
+
+const controlCompleteNote = function (data) {
+  completedNote(data);
+  view.renderNote(state.notes);
+  view.renderCompleteNote(state.completedNotes);
+};
+
+const init = function () {
+  view.addHandlerSubmit(controlSubmit);
+  view.getCloseId(controlClose);
+  view.getCompletedNote(controlCompleteNote);
+  getLocal();
+  view.renderNote(state.notes);
+  view.renderCompleteNote(state.completedNotes);
+};
+
+init();
