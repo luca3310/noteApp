@@ -15,16 +15,11 @@ export const loadNote = function (note) {
 };
 
 export const closeNote = function (id) {
-  state.notes.forEach(function (value) {
-    if (value[1] === id) {
-      state.notes.pop(value);
-    }
-  });
-  state.completedNotes.forEach(function (value) {
-    if (value[1] === id) {
-      state.completedNotes.pop(value);
-    }
-  });
+  state.notes = state.notes.filter((value) => value[1] !== id);
+
+  state.completedNotes = state.completedNotes.filter(
+    (value) => value[1] !== id
+  );
   setLocal();
   console.log(state.notes);
 };
@@ -33,9 +28,9 @@ export const completedNote = function (id) {
   state.notes.forEach(function (value) {
     if (value[1] === id) {
       state.completedNotes.push(value);
-      state.notes.pop(value);
     }
   });
+  state.notes = state.notes.filter((value) => value[1] !== id);
   setLocal();
   console.log(state);
 };
