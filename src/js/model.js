@@ -1,6 +1,7 @@
 export let state = {
   notes: [],
   completedNotes: [],
+  allNotes: [],
 };
 
 const setLocal = function () {
@@ -10,8 +11,9 @@ const setLocal = function () {
 export const loadNote = function (note) {
   const id = new Date().getTime().toString();
   state.notes.push([note, id]);
+  state.allNotes.push(note)
   setLocal();
-  console.log(state.notes);
+  console.log(state);
 };
 
 export const closeNote = function (id) {

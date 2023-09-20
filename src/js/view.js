@@ -48,9 +48,24 @@ class view {
       .querySelector(".form")
       .addEventListener("submit", function (e) {
         e.preventDefault();
-
         handler();
       });
+  }
+  addHandlerChange(handler) {
+    this.parentEl
+      .querySelector(".inputNote")
+      .addEventListener("input", function () {
+        const inputNote = this.parentEl.querySelector(".inputNote")
+        handler(inputNote.value) === undefined ? 
+        inputNote.innerHTML = ""
+         :
+        inputNote.querySelector(".suggestion").innerHTML = handler(str)
+      })
+  }
+  addHandlerChooseSuggestion() {
+    this.parentEl.querySelector(".suggestion").addEventListener("click", function () {
+        this.parentEl.querySelector(".inputNote").value = sug.innerHTML
+    })
   }
 
   _generateNoteMarkup([data, id]) {

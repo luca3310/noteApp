@@ -4,7 +4,6 @@ import { state } from "./model";
 
 const controlSubmit = function () {
   loadNote(view.getNote());
-
   view.renderNote(state.notes);
 };
 
@@ -21,6 +20,16 @@ const controlCompleteNote = function (data) {
   view.renderCompleteNote(state.completedNotes);
 };
 
+const controlGetAutoComplete = function (str) {
+  const autoCompleteArray = []
+  state.allNotes.forEach((note) => {
+    if (note.includes(str)) { 
+      autoCompleteArray.push(note)
+    }
+  })
+  return autoCompleteArray[0]
+}
+
 const init = function () {
   view.addHandlerSubmit(controlSubmit);
   view.getCloseId(controlClose);
@@ -28,6 +37,8 @@ const init = function () {
   getLocal();
   view.renderNote(state.notes);
   view.renderCompleteNote(state.completedNotes);
+  view.addHandlerChange(controlGetAutoComplete);
+  view.addHandlerChooseSuggestion();
 };
 
 init();

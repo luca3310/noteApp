@@ -38,6 +38,21 @@ main {
   height: 10rem;
 }
 
+.suggestionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.suggestion {
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.suggestion:hover {
+  cursor: pointer;
+}
+
 .inputNote:focus {
   outline: none !important;
   border: 1px solid #e99e18;
